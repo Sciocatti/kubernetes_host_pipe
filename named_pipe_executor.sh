@@ -10,10 +10,13 @@
 
 # TODO use timeout response (124) to delete pipes if exists
 
+# The folder to look for pipes
+PIPE_DIR="named_pipes"
+
 while true;
 do
     # Find all files in named_pipes/
-    FILES=$(ls named_pipes/ | xargs)
+    FILES=$(ls ${PIPE_DIR}/ | xargs)
     # and for each file
     for FILE in $FILES
     do

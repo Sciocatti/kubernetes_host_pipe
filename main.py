@@ -9,7 +9,7 @@ def main():
     # on the read pipe and return that
     response = pipe.send_message(COMMAND)
     # Print the output
-    print(repr(response))
+    print(response)
 
 
 if __name__ == "__main__":
