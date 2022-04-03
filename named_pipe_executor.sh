@@ -12,7 +12,17 @@
 
 # The folder to look for pipes
 PIPE_DIR="named_pipes"
+# Create if not exists
+mkdir -p "${PIPE_DIR}"
 
+# If there are any files, remove them. Dead pipes.
+FILES=$(ls ${PIPE_DIR}/ | xargs)
+for FILE in $FILES
+do
+    rm "${PIPE_DIR}/${FILE}"
+done
+
+# Listen for changes always
 while true;
 do
     # Find all files in named_pipes/
@@ -23,15 +33,7 @@ do
         # if it is not the response pipe
         if [[ "$FILE" != *_response ]]
         # eval the input, feed the output to the response pipe
-        then eval "$(timeout 5s cat named_pipes/${FILE})" > "named_pipes/${FILE}_response"
+        then eval "$(timeout 5s cat ${PIPE_DIR}/${FILE})" > "${PIPE_DIR}/${FILE}_response"
         fi
     done
 done
-
-# while true;
-# do
-#     OUTPUT=$(eval "$(cat named_pipes/test1)");
-#     # if [[ "$OUTPUT" != *named_pipes/test1* ]]
-#     #     then echo "${OUTPUT}"
-#     # fi;
-# done

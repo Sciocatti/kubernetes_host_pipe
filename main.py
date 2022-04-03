@@ -1,6 +1,6 @@
 from src.single_pipe_controller import SinglePipeController
 
-COMMAND = "ls"
+COMMAND = "pidof docker"
 
 def main():
     # Init the SinglePipeController
